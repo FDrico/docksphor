@@ -6,10 +6,13 @@ xhost +
 
 docker run --rm \
            -i \
-           --user builder \
-           --device /dev/dri \
+	   --device /dev/dri \
+	   --device /dev/snd \
+	   --device /dev/usb \
+	   --device /dev/bus/usb \
            --net=host \
            -v /tmp/.X11-unix:/tmp/.X11-unix \
+	   -v ~/GNURadio_projects:/home/builder/projects \
            -e DISPLAY=$DISPLAY\
            -t docksphor \
-           # bash
+           bash
