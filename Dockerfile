@@ -70,7 +70,7 @@ RUN sudo usermod -aG video builder
 RUN sudo usermod -aG render builder 
 RUN sudo usermod -aG plugdev builder 
 
-# Agrego reglas para permitir el uso del bus USB para el RTL-SDR sin ser root.
+# Agrego reglas para permitir el uso del bus USB para el RTL-SDR sin ser root. Editar según el output de lsusb (de usbutils).
 RUN echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="2838", GROUP="builder", MODE="0666", SYMLINK+="rtl_sdr"' > /etc/udev/rules.d/20.rtlsdr.rules 
 
 # Instalo dependencia
