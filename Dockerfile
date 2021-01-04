@@ -1,6 +1,6 @@
 FROM archlinux:20200908
 
-RUN pacman -Sy --noconfirm
+RUN pacman -Syy --noconfirm
 
 ENV install "pacman -S --noconfirm --needed"
 
@@ -43,6 +43,9 @@ RUN $install lsb-release
 # Para los builds
 RUN $install cmake
 
+# instalo QT5 para que al instalar fosphor, QT esté disponible
+RUN $install qt5-base
+
 # Biblioteca OpenCL libre que reemplaza a la de intel o a la de AMD. Tiene problemas con fosphor, porque instala OpenCL1.2, y fosphor lo blacklistea por buggy.
 #RUN $install pocl
 
@@ -64,11 +67,15 @@ RUN echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blackl
 RUN groupmod -g 44 video
 RUN groupmod -g 107 render
 RUN groupadd -g 46 plugdev
+RUN groupmod -g 29 audio
+# Main user -> builder para compartir archivos
+RUN usermod -u 1000 builder
 
 # Asigno al usuario creado los grupos que corresponde, para que tengan acceso.
 RUN sudo usermod -aG video builder
 RUN sudo usermod -aG render builder 
 RUN sudo usermod -aG plugdev builder 
+RUN sudo usermod -aG audio builder 
 
 # Agrego reglas para permitir el uso del bus USB para el RTL-SDR sin ser root. Editar según el output de lsusb (de usbutils).
 RUN echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="2838", GROUP="builder", MODE="0666", SYMLINK+="rtl_sdr"' > /etc/udev/rules.d/20.rtlsdr.rules 

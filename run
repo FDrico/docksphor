@@ -12,7 +12,7 @@ docker run --rm \
 	   --device /dev/bus/usb \
            --net=host \
            -v /tmp/.X11-unix:/tmp/.X11-unix \
-	   -v ~/GNURadio_projects:/home/builder/projects \
+	   -v /home/fluna/GNURadio_projects:/home/builder/projects \
            -e DISPLAY=$DISPLAY\
            -t docksphor \
            bash
