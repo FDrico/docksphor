@@ -13,6 +13,7 @@ docker run --rm \
            --net=host \
            -v /tmp/.X11-unix:/tmp/.X11-unix \
 	   -v /home/fluna/GNURadio_projects:/home/builder/projects \
+	   -v /home/fluna/dediqs:/home/builder/dediqs \
            -e DISPLAY=$DISPLAY\
            -t docksphor \
            bash

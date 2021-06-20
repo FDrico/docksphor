@@ -137,6 +137,12 @@ RUN git clone https://github.com/franalbani/gr-phychic.git
 WORKDIR $HOME/gr-phychic
 RUN bash tools/arch_build_helper 
 
+# Instalo burststreamer desde el github de fran
+WORKDIR $HOME
+RUN git clone https://github.com/franalbani/gr-burstream.git
+WORKDIR $HOME/gr-burstream
+RUN bash arch_build_helper
+
 # Instalo RTL-SDR desde repositorio oficial
 #WORKDIR $HOME
 #RUN git clone git://git.osmocom.org/rtl-sdr
