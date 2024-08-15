@@ -67,3 +67,18 @@ RUN $installsudo python3-pip
 RUN python3 -m pip install packages matplotlib numpy --break-system-packages
 
 RUN $installsudo python3-gi gobject-introspection gir1.2-gtk-3.0
+
+# install gr-satellites
+RUN $installsudo software-properties-common
+RUN sudo add-apt-repository -y ppa:daniestevez/gr-satellites
+RUN sudo apt update
+RUN $installsudo gr-satellites
+
+# install fosphor and opencl drivers
+RUN $installsudo ocl-icd-libopencl1
+RUN $installsudo ocl-icd-opencl-dev
+RUN $installsudo opencl-headers
+RUN $installsudo pocl-opencl-icd
+RUN $installsudo gr-fosphor
+RUN $installsudo gr-limesdr
+RUN $installsudo gr-osmosdr

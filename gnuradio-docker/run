@@ -17,7 +17,7 @@ docker run --rm \
 	   -v /etc/machine-id:/etc/machine-id \
 	   -v /var/lib/dbus:/var/lib/dbus \
 	   -v ~/.pulse:/home/builder/.pulse \
-	   -v /media/fede/Data1/repositorios/sdr-course:/home/builder/sdr \
+	   -v /media/fede/Data/repositorios/sdr-course:/home/ubuntu/sdr \
        -e DISPLAY=$DISPLAY\
 	   -e PULSE_SERVER=unix:/run/user/1000/pulse/native  \
 	   -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native \
