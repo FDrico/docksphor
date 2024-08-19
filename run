@@ -8,12 +8,24 @@ docker run --rm \
            -i \
 	   --device /dev/dri \
 	   --device /dev/snd \
-	   --device /dev/usb \
 	   --device /dev/bus/usb \
-           --net=host \
-           -v /tmp/.X11-unix:/tmp/.X11-unix \
-	   -v /home/fluna/GNURadio_projects:/home/builder/projects \
-	   -v /home/fluna/dediqs:/home/builder/dediqs \
-           -e DISPLAY=$DISPLAY\
-           -t docksphor \
-           bash
+       --net=host \
+	   -v /run/user/1000/pulse:/run/user/1000/pulse \
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+	   -v /dev/snd:/dev/snd \
+	   -v /dev/shm:/dev/shm \
+	   -v /etc/machine-id:/etc/machine-id \
+	   -v /var/lib/dbus:/var/lib/dbus \
+	   -v ~/.pulse:/home/builder/.pulse \
+	   -v /media/fede/Data/repositorios/sdr-course:/home/ubuntu/sdr \
+       -e DISPLAY=$DISPLAY\
+	   -e PULSE_SERVER=unix:/run/user/1000/pulse/native  \
+	   -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native \
+       --user 1000:1000 \
+	   --privileged \
+       -t gnuradioflun \
+	   bash
+       #gnuradio-companion
+
+#--device /dev/usb \
+
