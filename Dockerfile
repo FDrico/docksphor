@@ -64,7 +64,6 @@ RUN $installsudo python3-gi gobject-introspection gir1.2-gtk-3.0
 RUN $installsudo software-properties-common
 RUN sudo add-apt-repository -y ppa:daniestevez/gr-satellites
 RUN sudo apt update
-RUN $installsudo gr-satellites
 
 # install fosphor and opencl drivers
 RUN $installsudo ocl-icd-libopencl1
@@ -74,3 +73,23 @@ RUN $installsudo pocl-opencl-icd
 RUN $installsudo gr-fosphor
 RUN $installsudo gr-limesdr
 RUN $installsudo gr-osmosdr
+
+RUN $installsudo libspdlog-dev
+RUN $installsudo libsndfile1-dev
+RUN $installsudo liborc-0.4-dev
+RUN $installsudo python3-construct
+RUN $installsudo python3-requests
+RUN python3 -m pip install websocket-client --break-system-packages
+
+RUN git clone https://github.com/daniestevez/gr-satellites.git
+WORKDIR /home/ubuntu/gr-satellites
+RUN git checkout v5.5.0
+RUN mkdir build
+WORKDIR /home/ubuntu/gr-satellites/build
+RUN cmake ..
+RUN make
+RUN sudo make install
+RUN sudo ldconfig
+
+WORKDIR /home/ubuntu
+
