@@ -93,3 +93,5 @@ RUN sudo ldconfig
 
 WORKDIR /home/ubuntu
 
+## Section to consider Intel CPUs
+RUN $installsudo clinfo intel-opencl-icd
